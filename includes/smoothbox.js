@@ -9,7 +9,7 @@
  *   http://www.opensource.org/licenses/mit-license.php
  */
 
-var dir = window.basepath +"/modules/mod_thick_rss/images/";
+var dir = window.homepath +"/plugins/content/thickbox/images/";
 
 // on page load call TB_init
 window.addEvent('domready', TB_init);

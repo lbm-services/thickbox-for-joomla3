@@ -10,7 +10,6 @@
  * @description: Joomla mambot to display thickbox with ajax, static or iframed content
  */
 
-// No direct access
 defined('_JEXEC') or die;
 
 jimport('joomla.plugin.plugin');
@@ -32,6 +31,9 @@ class plgContentThickbox extends JPlugin
 
 		if (JPluginHelper::isEnabled('content', 'thickbox'))
 		{
+			$html .= '<script type="text/javascript">
+				var homepath = "'. $live_site .'";
+			</script>'.PHP_EOL;
 			$html .="<script type=\"text/javascript\" src=\"" . $live_site . "/plugins/content/thickbox/includes/smoothbox.js\"></script>\n";
 			$html .="<link rel=\"stylesheet\" href=\"". $live_site . "/plugins/content/thickbox/includes/smoothbox.css\" type=\"text/css\" media=\"screen\" />\n";
 
@@ -47,24 +49,24 @@ class plgContentThickbox extends JPlugin
 			// add slimbox
 			if ($int == 1 )
 			{
-				$html .="<script type=\"text/javascript\" src=\"" . $live_site . "plugins/content/thickbox/includes/slimbox.js\"></script>\n";
-				$html .="<link rel=\"stylesheet\" href=\"". $live_site . "plugins/content/thickbox/includes/slimbox.css\" type=\"text/css\" media=\"screen\" />\n";
+				$html .="<script type=\"text/javascript\" src=\"" . $live_site . "/plugins/content/thickbox/includes/slimbox.js\"></script>\n";
+				$html .="<link rel=\"stylesheet\" href=\"". $live_site . "/plugins/content/thickbox/includes/slimbox.css\" type=\"text/css\" media=\"screen\" />\n";
 				$html .= "<style type=\"text/css\">
 		.lbLoading {
-		background: #fff url(".$live_site. "plugins/content/thickbox/images/loading.gif) no-repeat center;
+		background: #fff url(".$live_site. "/plugins/content/thickbox/images/loading.gif) no-repeat center;
 		}
 		#lbPrevLink:hover {
-		background: transparent url(".$live_site. "plugins/content/thickbox/images/prevlabel.gif) no-repeat 0% 15%;
+		background: transparent url(".$live_site. "/plugins/content/thickbox/images/prevlabel.gif) no-repeat 0% 15%;
 		}
 		#lbNextLink:hover {
-		background: transparent url(".$live_site. "plugins/content/thickbox/images/nextlabel.gif) no-repeat 100% 15%;
+		background: transparent url(".$live_site. "/plugins/content/thickbox/images/nextlabel.gif) no-repeat 100% 15%;
 		}
 		#lbCloseLink {
 		display: block;
 		float: right;
 		width: 66px;
 		height: 22px;
-		background: transparent url(".$live_site."plugins/content/thickbox/images/closelabel.gif) no-repeat center;
+		background: transparent url(".$live_site."/plugins/content/thickbox/images/closelabel.gif) no-repeat center;
 		margin: 5px 0;
 		}
 	</style>";
@@ -320,5 +322,3 @@ class plgContentThickbox extends JPlugin
 
 	}
 }
-
-
