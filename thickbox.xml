@@ -8,7 +8,9 @@
 <authorEmail>info@lbm-services.de</authorEmail>
 <authorUrl>www.lbm-services.de</authorUrl>
 <version>3.0</version>
-<description>TB_DESC</description>
+<description><![CDATA[<h2>Thickbox+ for Joomla 1.6.x </h2>ThickBox+ is a one-for-all content box to show a single image, image galleries, inline content, iframed content, or content served through Ajax in a hybrid modal window. <br /><br />For details on usage and demos refer to <a href="http://lbm-services.de/joomla/index.php?option=com_content&task=view&id=22&Itemid=46" target="_blank">demo page</a>.<br /><br />
+]]></description>
+
    <files>
      <filename plugin="thickbox">thickbox.php</filename>
      <filename>includes/smoothbox.css</filename>
