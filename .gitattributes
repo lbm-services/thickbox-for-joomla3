@@ -1,2 +1,3 @@
 *.php export-subst
+*.ini export-subst
 *.php filter=add_tag

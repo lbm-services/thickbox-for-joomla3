@@ -31,7 +31,7 @@
     <language tag="en-GB">en-GB/en-GB.plg_content_thickbox.sys.ini</language>
   </languages>
 <config>
-		<fields name="fields">
+		<fields name="params">
 		<fieldset name="basic">
 <field name="slimbox" type="radio" default="1" label="Lightbox effect" description="Use lightbox effect. Default=no">
 			<option value="1">Yes</option>
