@@ -1,0 +1,2 @@
+*.php export-subst
+*.php filter=add_tag
