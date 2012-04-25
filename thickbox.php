@@ -1,11 +1,11 @@
 <?php
 //error_reporting(E_ALL);
 /**
- * @mosthickbox.php $Format:%ci$
+ * @thickbox.php $Format:%ci$
  * @package thickbox
- * @author $Format:%an$ $Format:%ae$
+ * @author Horst Lindlbauer info@lbm-services.de
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * $version: 3.0
+ * $version: 3.1
  * @credit: Boris Popoff (smoothbox), Christophe Beyls (slimbox), Codey Lindley for the orignal thickbox.js
  * @description: Joomla mambot to display thickbox with ajax, static or iframed content
  */
@@ -21,14 +21,9 @@ class plgContentThickbox extends JPlugin
 	{
 		parent::__construct($subject, $config);
 		$this->loadLanguage();
-	}
-
-	public function onContentPrepare($context, &$row, &$params, $page = 0 )
-	{
-//		$app = JFactory::getApplication();
 		$live_site = JUri::base(true);
 		$html = "";
-
+		
 		if (JPluginHelper::isEnabled('content', 'thickbox'))
 		{
 			$html .= '<script type="text/javascript">
@@ -74,7 +69,16 @@ class plgContentThickbox extends JPlugin
 			$document =& JFactory::getDocument();
 			$doctype = $document->getType();
 			if ($doctype == "html") $document->addCustomTag( $html );
+		}
+		
+	}
 
+	public function onContentPrepare($context, &$row, &$params, $page = 0 )
+	{
+//		$app = JFactory::getApplication();
+				
+		if (JPluginHelper::isEnabled('content', 'thickbox'))
+		{
 			$row->text = $this->_procBox($row->text, $int);
 			return true;
 

@@ -2,49 +2,87 @@
 <extension version="1.6" type="plugin" group="content">
 	<name>plg_content_thickbox</name>
 	<author>Horst Lindlbauer</author>
-<creationDate>July 2011</creationDate>
-<copyright>(C) 2008-2011 lbm-services</copyright>
+
+<creationDate>Apr 2012</creationDate>
+
+<copyright>(C) 2008-2012 lbm-services</copyright>
+
 <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+
 <authorEmail>info@lbm-services.de</authorEmail>
+
 <authorUrl>www.lbm-services.de</authorUrl>
-<version>3.0</version>
-<description><![CDATA[<h2>Thickbox+ for Joomla 1.6.x </h2>ThickBox+ is a one-for-all content box to show a single image, image galleries, inline content, iframed content, or content served through Ajax in a hybrid modal window. <br /><br />For details on usage and demos refer to <a href="http://lbm-services.de/joomla/index.php?option=com_content&task=view&id=22&Itemid=46" target="_blank">demo page</a>.<br /><br />
+
+<version>3.1</version>
+
+<description><![CDATA[<h2>Thickbox+ for Joomla 1.6.x/1.7.x/2.5.x </h2>ThickBox+ is a one-for-all content box to show a single image, image galleries, inline content, iframed content, or content served through Ajax in a hybrid modal window. <br /><br />For details on usage and demos refer to <a href="http://lbm-services.de/joomla/index.php?option=com_content&task=view&id=22&Itemid=46" target="_blank">demo page</a>.<br /><br />
 ]]></description>
 
+
    <files>
+
      <filename plugin="thickbox">thickbox.php</filename>
+
      <filename>includes/smoothbox.css</filename>
+
 	 <filename>includes/smoothbox.js</filename>
+
          <filename>includes/slimbox.css</filename>
+
 	 <filename>includes/slimbox.js</filename>
+
 	<filename>images/loading.gif</filename>
+
 	<filename>images/loadingAnimation.gif</filename>
+
 	<filename>images/image.gif</filename>
+
 	<filename>images/close.jpg</filename>
+
 	<filename>images/next_image.jpg</filename>
+
 	<filename>images/prev_image.jpg</filename>
+
 	<filename>images/closelabel.gif</filename>
+
 	<filename>images/nextlabel.gif</filename>
+
 	<filename>images/prevlabel.gif</filename>
+
 	<filename>images/spacer.gif</filename>
+
 	</files>
 	  <languages>
+
     <language tag="en-GB">en-GB/en-GB.plg_content_thickbox.ini</language>
     <language tag="en-GB">en-GB/en-GB.plg_content_thickbox.sys.ini</language>
+
   </languages>
+
 <config>
 		<fields name="params">
 		<fieldset name="basic">
+
 <field name="slimbox" type="radio" default="1" label="Lightbox effect" description="Use lightbox effect. Default=no">
+
 			<option value="1">Yes</option>
+
 			<option value="0">No</option>
+
 		</field>
+
 		<field name="thumb_width" type="text" size="6" default="100" label="Thumbnail Width" description="Set the width of the thumbnail to be created (default: 100px)" />		
+
 		<field name="thumb_height" type="text" size="6" default="75" label="Thumbnail Height" description="Set the height of the thumbnail to be created (default: 75px)" />		
+
 		<field name="thumb_quality" type="text" size="6" default="80" label="Thumbnail Quality" description="Set the quality of the thumbnail to be created (default: 80, max: 100)" />		
+
 </fieldset>
 
 		</fields>
 	</config>
+
 		
+
 </extension>
+
