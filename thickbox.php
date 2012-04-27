@@ -75,7 +75,8 @@ class plgContentThickbox extends JPlugin
 
 	public function onContentPrepare($context, &$row, &$params, $page = 0 )
 	{
-//		$app = JFactory::getApplication();
+
+		$int = $this->params->get( 'slimbox', 0 );
 				
 		if (JPluginHelper::isEnabled('content', 'thickbox'))
 		{
