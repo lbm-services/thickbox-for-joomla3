@@ -3,7 +3,7 @@
 	<name>plg_content_thickbox</name>
 	<author>Horst Lindlbauer</author>
 
-<creationDate>Apr 2012</creationDate>
+<creationDate>June 2012</creationDate>
 
 <copyright>(C) 2008-2012 lbm-services</copyright>
 
@@ -13,9 +13,9 @@
 
 <authorUrl>www.lbm-services.de</authorUrl>
 
-<version>3.1</version>
+<version>3.2</version>
 
-<description><![CDATA[<h2>Thickbox+ for Joomla 1.6.x/1.7.x/2.5.x </h2>ThickBox+ is a one-for-all content box to show a single image, image galleries, inline content, iframed content, or content served through Ajax in a hybrid modal window. <br /><br />For details on usage and demos refer to <a href="http://lbm-services.de/joomla/index.php?option=com_content&task=view&id=22&Itemid=46" target="_blank">demo page</a>.<br /><br />
+<description><![CDATA[<h2>Thickbox+ for Joomla 1.6.x/1.7.x/2.5.x </h2>ThickBox+ is a one-for-all content box to show a single image, image galleries, inline content, iframed content, or content served through Ajax in a hybrid modal window. <br /><br />For details on usage and demos refer to <a href="http://www.lbm-services.de/support/thickboxlightwindow-demo" target="_blank">demo page</a>.<br /><br />
 ]]></description>
 
 
