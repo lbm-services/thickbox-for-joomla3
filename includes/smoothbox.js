@@ -230,7 +230,7 @@ function TB_show(caption, url, rel){
         
         TB_WIDTH = (params['width'] * 1) + 30;
         TB_HEIGHT = (params['height'] * 1) + 40;
-   		caption = params['caption'];
+   		caption = urldecode(params['caption']);
         var ajaxContentW = TB_WIDTH - 30, ajaxContentH = TB_HEIGHT - 45;
 	var dummy = { caption: "", url: "", html: "" };
 
@@ -486,3 +486,7 @@ function TB_parseQuery(query){
     }
     return params;
 }
+
+function urldecode(url) {
+	  return decodeURIComponent(escape(url.replace(/\+/g, ' ')));
+	}

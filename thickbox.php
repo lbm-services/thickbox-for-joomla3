@@ -5,7 +5,7 @@
  * @package thickbox
  * @author Horst Lindlbauer info@lbm-services.de
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * $version: 3.1
+ * $version: 3.2
  * @credit: Boris Popoff (smoothbox), Christophe Beyls (slimbox), Codey Lindley for the orignal thickbox.js
  * @description: Joomla mambot to display thickbox with ajax, static or iframed content
  */
@@ -29,7 +29,7 @@ class plgContentThickbox extends JPlugin
 			$html .= '<script type="text/javascript">
 				var homepath = "'. $live_site .'";
 			</script>'.PHP_EOL;
-			$html .="<script type=\"text/javascript\" src=\"" . $live_site . "/plugins/content/thickbox/includes/smoothbox.js\"></script>\n";
+			$html .="<script type=\"text/javascript\" src=\"" . $live_site . "/plugins/content/thickbox/includes/smoothbox.js\" charset=\"utf-8\"></script>\n";
 			$html .="<link rel=\"stylesheet\" href=\"". $live_site . "/plugins/content/thickbox/includes/smoothbox.css\" type=\"text/css\" media=\"screen\" />\n";
 
 			// get Lightbox switch
@@ -44,7 +44,7 @@ class plgContentThickbox extends JPlugin
 			// add slimbox
 			if ($int == 1 )
 			{
-				$html .="<script type=\"text/javascript\" src=\"" . $live_site . "/plugins/content/thickbox/includes/slimbox.js\"></script>\n";
+				$html .="<script type=\"text/javascript\" src=\"" . $live_site . "/plugins/content/thickbox/includes/slimbox.js\" charset=\"utf-8\"></script>\n";
 				$html .="<link rel=\"stylesheet\" href=\"". $live_site . "/plugins/content/thickbox/includes/slimbox.css\" type=\"text/css\" media=\"screen\" />\n";
 				$html .= "<style type=\"text/css\">
 		.lbLoading {
