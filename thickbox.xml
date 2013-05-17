@@ -3,9 +3,9 @@
 	<name>plg_content_thickbox</name>
 	<author>Horst Lindlbauer</author>
 
-<creationDate>June 2012</creationDate>
+<creationDate>May 2013</creationDate>
 
-<copyright>(C) 2008-2012 lbm-services</copyright>
+<copyright>(C) 2008-2013 lbm-services</copyright>
 
 <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 
@@ -13,7 +13,7 @@
 
 <authorUrl>www.lbm-services.de</authorUrl>
 
-<version>3.2</version>
+<version>3.3</version>
 
 <description><![CDATA[<h2>Thickbox+ for Joomla 1.6.x/1.7.x/2.5.x </h2>ThickBox+ is a one-for-all content box to show a single image, image galleries, inline content, iframed content, or content served through Ajax in a hybrid modal window. <br /><br />For details on usage and demos refer to <a href="http://www.lbm-services.de/support/thickboxlightwindow-demo" target="_blank">demo page</a>.<br /><br />
 ]]></description>
@@ -75,7 +75,11 @@
 
 		<field name="thumb_height" type="text" size="6" default="75" label="Thumbnail Height" description="Set the height of the thumbnail to be created (default: 75px)" />		
 
-		<field name="thumb_quality" type="text" size="6" default="80" label="Thumbnail Quality" description="Set the quality of the thumbnail to be created (default: 80, max: 100)" />		
+		<field name="thumb_quality" type="text" size="6" default="80" label="Thumbnail Quality" description="Set the quality of the thumbnail to be created (default: 80, max: 100)" />
+
+		<field name="thumb_border" type="text" size="6" default="0" label="Thumbnail Border width" description="Set the border width of the thumbnail to be displayed (default: 0 = no border)" />
+
+		<field name="thumb_bordercolor" type="text" size="6" default="000" label="Thumbnail Border color (HEX) #" description="Set the border color (HEX) of the thumbnail to be displayed (default: 000 = black)" />
 
 </fieldset>
 

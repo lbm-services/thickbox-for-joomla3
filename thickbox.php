@@ -5,7 +5,7 @@
  * @package thickbox
  * @author Horst Lindlbauer info@lbm-services.de
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * $version: 3.2
+ * $version: 3.3
  * @credit: Boris Popoff (smoothbox), Christophe Beyls (slimbox), Codey Lindley for the orignal thickbox.js
  * @description: Joomla mambot to display thickbox with ajax, static or iframed content
  */
@@ -36,9 +36,9 @@ class plgContentThickbox extends JPlugin
 
 			$int = $this->params->get( 'slimbox', 0 );
 
-			$th_width = $this->params->get( 'thumbnail_width' );
-			$th_height = $this->params->get( 'thumbnail_height' );
-			$th_quality = $this->params->get( 'thumbnail_quality' );
+			$th_width = $this->params->get( 'thumb_width' );
+			$th_height = $this->params->get( 'thumb_height' );
+			$th_quality = $this->params->get( 'thumb_quality' );
 
 
 			// add slimbox
@@ -219,6 +219,11 @@ class plgContentThickbox extends JPlugin
 				$thdir = 	JPATH_SITE.'/tmp';
 				$imgpath = JURI::base(). "images/". $galdir;
 				$thpath = JURI::base(). "tmp/";
+				$th_width = $this->params->get( 'thumb_width' );
+				$th_height = $this->params->get( 'thumb_height' );
+				$th_quality = $this->params->get( 'thumb_quality' );
+				$th_border = $this->params->get( 'thumb_border' );
+				$th_bordercolor = $this->params->get( 'thumb_bordercolor' );
 
 				// read directory
 				if ($dir = opendir($imgdir)) {
@@ -252,7 +257,7 @@ class plgContentThickbox extends JPlugin
 
 				for($i = 0;$i < count($images);$i++) {
 
-					$output .= '<a href="'.$imgpath.'/'.$images[$i].'" title="'.$prmlist['title'].'" '.$rel.'><img src="'.$thpath.substr($images[$i],0,strrpos($images[$i],'.')).'_t'.substr($images[$i],-4).'" border="0" alt="'.$prmlist['title'].'" /></a>'.PHP_EOL;
+					$output .= '<a href="'.$imgpath.'/'.$images[$i].'" title="'.$prmlist['title'].'" '.$rel.'><img src="'.$thpath.substr($images[$i],0,strrpos($images[$i],'.')).'_t'.substr($images[$i],-4).'" style="border-width:'.$th_border.'px; border-color:#'.$th_bordercolor.'; border-style: solid;" alt="'.$prmlist['title'].'" /></a>'.PHP_EOL;
 				}
 				$text = preg_replace($regex, $output, $text, 1);
 			}
