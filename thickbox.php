@@ -5,7 +5,7 @@
  * @package thickbox
  * @author Horst Lindlbauer info@lbm-services.de
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * $version: 3.3
+ * $version: 3.4
  * @credit: Boris Popoff (smoothbox), Christophe Beyls (slimbox), Codey Lindley for the orignal thickbox.js
  * @description: Joomla mambot to display thickbox with ajax, static or iframed content
  */
@@ -17,58 +17,43 @@ jimport('joomla.plugin.plugin');
 
 class plgContentThickbox extends JPlugin
 {
-	public function __construct(& $subject, $config)
+    protected $livesite;
+
+	public function __construct(&$subject, $config)
 	{
 		parent::__construct($subject, $config);
 		$this->loadLanguage();
-		$live_site = JUri::base(true);
+		$this->livesite = JUri::base(true);
 		$html = "";
 		
 		if (JPluginHelper::isEnabled('content', 'thickbox'))
 		{
 			$html .= '<script type="text/javascript">
-				var homepath = "'. $live_site .'";
+				var homepath = "'. $this->livesite .'";
 			</script>'.PHP_EOL;
-			$html .="<script type=\"text/javascript\" src=\"" . $live_site . "/plugins/content/thickbox/includes/smoothbox.js\" charset=\"utf-8\"></script>\n";
-			$html .="<link rel=\"stylesheet\" href=\"". $live_site . "/plugins/content/thickbox/includes/smoothbox.css\" type=\"text/css\" media=\"screen\" />\n";
-
-			// get Lightbox switch
-
-			$int = $this->params->get( 'slimbox', 0 );
 
 			$th_width = $this->params->get( 'thumb_width' );
 			$th_height = $this->params->get( 'thumb_height' );
 			$th_quality = $this->params->get( 'thumb_quality' );
 
-
-			// add slimbox
-			if ($int == 1 )
-			{
-				$html .="<script type=\"text/javascript\" src=\"" . $live_site . "/plugins/content/thickbox/includes/slimbox.js\" charset=\"utf-8\"></script>\n";
-				$html .="<link rel=\"stylesheet\" href=\"". $live_site . "/plugins/content/thickbox/includes/slimbox.css\" type=\"text/css\" media=\"screen\" />\n";
-				$html .= "<style type=\"text/css\">
-		.lbLoading {
-		background: #fff url(".$live_site. "/plugins/content/thickbox/images/loading.gif) no-repeat center;
-		}
-		#lbPrevLink:hover {
-		background: transparent url(".$live_site. "/plugins/content/thickbox/images/prevlabel.gif) no-repeat 0% 15%;
-		}
-		#lbNextLink:hover {
-		background: transparent url(".$live_site. "/plugins/content/thickbox/images/nextlabel.gif) no-repeat 100% 15%;
-		}
-		#lbCloseLink {
-		display: block;
-		float: right;
-		width: 66px;
-		height: 22px;
-		background: transparent url(".$live_site."/plugins/content/thickbox/images/closelabel.gif) no-repeat center;
-		margin: 5px 0;
-		}
-	</style>";
-			}
-			$document =& JFactory::getDocument();
+			$document = JFactory::getDocument();
 			$doctype = $document->getType();
 			if ($doctype == "html") $document->addCustomTag( $html );
+            $style = $this->params->get( 'design', 'default' );
+            static $instance;
+            $mod_path = $this->livesite . "/plugins/content/thickbox";
+
+            if (!isset($instance)){
+
+                $html = '';
+                $html .= '<script type="application/json" id="easyOptions">
+			{"news": {"overlayOpacity": 0.1}}
+			</script>'.PHP_EOL;
+                $html .="<script type=\"text/javascript\" src=\"" . $mod_path . "/includes/distrib.min.js\"></script>".PHP_EOL;
+                $html .="<link rel=\"stylesheet\" href=\"". $mod_path. "/includes/styles/$style/easybox.min.css\" type=\"text/css\" media=\"screen\" />".PHP_EOL;
+                $document->addCustomTag( $html );
+                $instance = true;
+            }
 		}
 		
 	}
@@ -76,11 +61,10 @@ class plgContentThickbox extends JPlugin
 	public function onContentPrepare($context, &$row, &$params, $page = 0 )
 	{
 
-		$int = $this->params->get( 'slimbox', 0 );
-				
+
 		if (JPluginHelper::isEnabled('content', 'thickbox'))
 		{
-			$row->text = $this->_procBox($row->text, $int);
+			$row->text = $this->_procBox($row->text);
 			return true;
 
 		} else {
@@ -99,7 +83,7 @@ class plgContentThickbox extends JPlugin
 	protected function _procBox($text, $int = null) {
 
 
-		//thickbox (new, invisible)
+		//inline (new, invisible)
 		//-----------------------------------------------------------------
 
 		$regex = '#{thickbox(\s*.*?)}(.*?){/thickbox}#s';
@@ -112,11 +96,11 @@ class plgContentThickbox extends JPlugin
 				if(@$prmlist['linktext']=='') $prmlist['linktext']='open box';
 				if(@$prmlist['width']=='') $prmlist['width']='800';
 				if(@$prmlist['height']=='') $prmlist['height']='600';
-				if(isset($prmlist['thumb']) && ($prmlist['thumb'] != '') ) $link ='<img src="'.$prmlist['thumb'].'" alt="'.$prmlist['linktext'].'" border="0" />';
+				if(isset($prmlist['thumb']) && ($prmlist['thumb'] != '') ) $link ='<img src="'.$this->livesite.$prmlist['thumb'].'" alt="'.$prmlist['linktext'].'" border="0" />';
 				else $link = $prmlist['linktext'];
 
 				$sid = "tb".$i.time(); // generate unique ID for div
-				$output = '<a href="'.JFilterOutput::ampReplace("/#TB_inline?height={height}&width={width}&inlineId=". $sid."&caption=".urlencode($prmlist['linktext'])).'" title="::'.$prmlist['linktext'].'" class="smoothbox">'.$link.'</a><div id="'.$sid.'" style="display:none;">'.$matches[2][$i].'</div>';
+				$output = '<a href="#'. $sid.'" title="'.$prmlist['linktext'].'" class="lightbox" data-width="{width}" data-height="{height}">'.$link.'</a><div id="'.$sid.'" style="display:none;width:'.$prmlist['width'].' px;height:'.$prmlist['height'].' px;">'.$matches[2][$i].'</div>';
 
 				$output = str_replace(array('{width}','{height}'), array($prmlist['width'],$prmlist['height']), $output);
 				$text = preg_replace($regex, $output, $text, 1);
@@ -140,10 +124,10 @@ class plgContentThickbox extends JPlugin
 				if(@$prmlist['width']=='') $prmlist['width']='300';
 				if(@$prmlist['height']=='') $prmlist['height']='300';
 				if(@$prmlist['inlineId']=='') break;
-				if(isset($prmlist['thumb']) && ($prmlist['thumb'] != '') ) $link ='<img src="'.$prmlist['thumb'].'" alt="'.$prmlist['linktext'].'" border="0" />';
+				if(isset($prmlist['thumb']) && ($prmlist['thumb'] != '') ) $link ='<img src="'.$this->livesite.$prmlist['thumb'].'" alt="'.$prmlist['linktext'].'" border="0" />';
 				else $link = $prmlist['linktext'];
 
-				$output = '<a href="'. JFilterOutput::ampReplace("/#TB_inline?height={height}&width={width}&inlineId=".$prmlist['inlineId']."&caption=".urlencode($prmlist['linktext'])) . '" title="::'.$prmlist['linktext'].'" class="smoothbox">'.$link.'</a>';
+				$output = '<a href="#'.$prmlist['inlineId'].'" title="'.$prmlist['linktext'].'" class="lightbox">'.$link.'</a>';
 
 				$output = str_replace(array('{width}','{height}'), array($prmlist['width'],$prmlist['height']), $output);
 				$text = preg_replace($regex, $output, $text, 1);
@@ -166,14 +150,14 @@ class plgContentThickbox extends JPlugin
 				if(@$prmlist['width']=='') $prmlist['width']='300';
 				if(@$prmlist['height']=='') $prmlist['height']='300';
 				if(@$prmlist['url']=='') break;
-				if(isset($prmlist['thumb']) && ($prmlist['thumb'] != '') ) $link ='<img src="'.$prmlist['thumb'].'" alt="'.$prmlist['linktext'].'" border="0" />';
+				if(isset($prmlist['thumb']) && ($prmlist['thumb'] != '') ) $link ='<img src="'.$this->livesite.$prmlist['thumb'].'" alt="'.$prmlist['linktext'].'" border="0" />';
 				else $link = $prmlist['linktext'];
-				if(isset($prmlist['gal']) && ($prmlist['gal'] != '') ) $rel = ' rel="'.$prmlist['gal'].'" ';
+				if(!empty($prmlist['gal'])) $rel = ' data-group="'.$prmlist['gal'].'" ';
 
 
 				if ( strpos($prmlist['url'], '?' ) !== false ) $sep = "&";
 
-				$output = '<a href="'.$prmlist['url'].$sep.'keepThis=true&TB_iframe=true&height={height}&width={width}&caption='.urlencode($prmlist['linktext']).'"   title="::'.$prmlist['linktext'].'" class="smoothbox"'.$rel.'>'.$link.'</a>';
+				$output = '<a class="lightbox" data-width="{width}" data-height="{height}" href="'.$prmlist['url'].'" title="'.$prmlist['linktext'].'"'.$rel.'>'.$link.'</a>';
 
 
 				$output = JFilterOutput::ampReplace(str_replace(array('{width}','{height}'), array($prmlist['width'],$prmlist['height']), $output));
@@ -190,17 +174,17 @@ class plgContentThickbox extends JPlugin
 			for($i=0;$i<count($matches[0]);$i++){
 				$prmlist = $this->_getprm($matches[0][$i]);
 				$output = '';
-				if ($int == 1) $rel = 'rel="lightbox';
-				else $rel = 'class="smoothbox';
+
+				$rel = 'class="lightbox';
 				if(@$prmlist['title']=='') $prmlist['title']='open box';
 				if(@$prmlist['img']=='') break;
 				if(@$prmlist['thumb']=='') break;
 				if(isset($prmlist['gal']) && ($prmlist['gal'] != '') ) {
-					if ($int == 1) $rel .= "[".$prmlist['gal']."]";
-					else $rel .= '" rel="'.$prmlist['gal'];
+					//if ($int == 1) $rel .= "[".$prmlist['gal']."]";
+					$rel .= '" data-group="'.$prmlist['gal'];
 				}
 				$rel .= '"';
-				$output = '<a href="'.$prmlist['img'].'" title="'.$prmlist['title'].'" '.$rel.'><img src="'.$prmlist['thumb'].'" border="0" alt="'.$prmlist['title'].'" /></a>';
+				$output = '<a href="'.$this->livesite.$prmlist['img'].'" title="'.$prmlist['title'].'" '.$rel.'><img src="'.$this->livesite.$prmlist['thumb'].'" border="0" alt="'.$prmlist['title'].'" /></a>';
 
 				$text = preg_replace($regex, $output, $text, 1);
 			}
@@ -246,12 +230,11 @@ class plgContentThickbox extends JPlugin
 				}
 
 				$prmlist = $this->_getprm($match);
-				if ($int == 1) $rel = 'rel="lightbox';
-				else $rel = 'class="smoothbox';
+				//if ($int == 1) $rel = 'rel="lightbox';
+				$rel = 'class="lightbox';
 				if(@$prmlist['title']=='') $prmlist['title']='Gallery (No Title)';
 				if(isset($prmlist['title']) && ($prmlist['title'] != '') ) {
-					if ($int == 1) $rel .= "[".$prmlist['title']."]";
-					else $rel .= '" rel="'.$prmlist['title'];
+					$rel .= '" data-group="'.$prmlist['title'];
 				}
 				$rel .= '"';
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="1.6" type="plugin" group="content" method="upgrade">
+<extension version="3.2" type="plugin" group="content" method="upgrade">
 	<name>plg_content_thickbox</name>
 	<author>Horst Lindlbauer</author>
 
-<creationDate>May 2013</creationDate>
+<creationDate>Oct 2014</creationDate>
 
-<copyright>(C) 2008-2013 lbm-services</copyright>
+<copyright>(C) 2008-2014 lbm-services</copyright>
 
 <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 
@@ -13,44 +13,16 @@
 
 <authorUrl>www.lbm-services.de</authorUrl>
 
-<version>3.3</version>
+<version>3.4</version>
 
-<description><![CDATA[<h2>Thickbox+ for Joomla 1.6.x/1.7.x/2.5.x </h2>ThickBox+ is a one-for-all content box to show a single image, image galleries, inline content, iframed content, or content served through Ajax in a hybrid modal window. <br /><br />For details on usage and demos refer to <a href="http://www.lbm-services.de/support/thickboxlightwindow-demo" target="_blank">demo page</a>.<br /><br />
+<description><![CDATA[<h2>Thickbox+ for Joomla 3.x </h2>ThickBox+ is a one-for-all content box to show a single image, image galleries, inline content, iframed content, or content served through Ajax in a hybrid modal window. <br /><br />For details on usage and demos refer to <a href="http://www.lbm-services.de/support/thickboxlightwindow-demo" target="_blank">demo page</a>.<br /><br />
 ]]></description>
 
 
    <files>
 
      <filename plugin="thickbox">thickbox.php</filename>
-
-     <filename>includes/smoothbox.css</filename>
-
-	 <filename>includes/smoothbox.js</filename>
-
-         <filename>includes/slimbox.css</filename>
-
-	 <filename>includes/slimbox.js</filename>
-
-	<filename>images/loading.gif</filename>
-
-	<filename>images/loadingAnimation.gif</filename>
-
-	<filename>images/image.gif</filename>
-
-	<filename>images/close.jpg</filename>
-
-	<filename>images/next_image.jpg</filename>
-
-	<filename>images/prev_image.jpg</filename>
-
-	<filename>images/closelabel.gif</filename>
-
-	<filename>images/nextlabel.gif</filename>
-
-	<filename>images/prevlabel.gif</filename>
-
-	<filename>images/spacer.gif</filename>
-
+       <folder>includes</folder>
 	</files>
 	  <languages>
 
@@ -63,13 +35,12 @@
 		<fields name="params">
 		<fieldset name="basic">
 
-<field name="slimbox" type="radio" default="1" label="Lightbox effect" description="Use lightbox effect. Default=no">
-
-			<option value="1">Yes</option>
-
-			<option value="0">No</option>
-
-		</field>
+            <field name="design" type="list" default="default" label="Select Design" description="Select easybox style">
+                <option value="default">default</option>
+                <option value="dark">dark</option>
+                <option value="modern">modern</option>
+                <option value="glow">glow</option>
+            </field>
 
 		<field name="thumb_width" type="text" size="6" default="100" label="Thumbnail Width" description="Set the width of the thumbnail to be created (default: 100px)" />		
 
