@@ -1,11 +1,10 @@
 <?php
-//error_reporting(E_ALL);
 /**
  * @thickbox.php $Format:%ci$
  * @package thickbox
  * @author Horst Lindlbauer info@lbm-services.de
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * $version: 3.4
+ * $version: 3.4.1
  * @credit: Boris Popoff (smoothbox), Christophe Beyls (slimbox), Codey Lindley for the orignal thickbox.js
  * @description: Joomla mambot to display thickbox with ajax, static or iframed content
  */
@@ -194,7 +193,7 @@ class plgContentThickbox extends JPlugin
 		//-----------------------------------------------------------------
 
 		$regex = "#{gallery\s*.*?}(.*?){/gallery}#s";
-		$output = '';
+		
 		if (preg_match_all($regex, $text, $matches) > 0) {
 			foreach ($matches[0] as $match) {
 				$galdir = preg_replace("/{.+?}/", "", $match);
@@ -220,7 +219,6 @@ class plgContentThickbox extends JPlugin
 							if (!file_exists($thumb)){
 								// generate thumb
 								$this->_makeThumb($imgdir.'/'.$f,$ext, $th_width, $th_height, $th_quality);
-								// $output .=	$thdir.'/'.$f . ' created.<br/>';
 							}
 							$images[] = $f;
 						}
@@ -230,14 +228,13 @@ class plgContentThickbox extends JPlugin
 				}
 
 				$prmlist = $this->_getprm($match);
-				//if ($int == 1) $rel = 'rel="lightbox';
 				$rel = 'class="lightbox';
-				if(@$prmlist['title']=='') $prmlist['title']='Gallery (No Title)';
-				if(isset($prmlist['title']) && ($prmlist['title'] != '') ) {
+				if (@$prmlist['title']=='') $prmlist['title']='Gallery (No Title)';
+				if (isset($prmlist['title']) && ($prmlist['title'] != '') ) {
 					$rel .= '" data-group="'.$prmlist['title'];
 				}
 				$rel .= '"';
-
+				$output = '';
 				for($i = 0;$i < count($images);$i++) {
 
 					$output .= '<a href="'.$imgpath.'/'.$images[$i].'" title="'.$prmlist['title'].'" '.$rel.'><img src="'.$thpath.substr($images[$i],0,strrpos($images[$i],'.')).'_t'.substr($images[$i],-4).'" style="border-width:'.$th_border.'px; border-color:#'.$th_bordercolor.'; border-style: solid;" alt="'.$prmlist['title'].'" /></a>'.PHP_EOL;
